@@ -12,10 +12,14 @@ repositories {
     jcenter()
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-    implementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
 }

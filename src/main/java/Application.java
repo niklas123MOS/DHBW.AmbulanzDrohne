@@ -22,6 +22,16 @@ public class Application {
 
         Human human = new Human();
 
+        String[][] city =mosbach.getCityarea();
+
+        for (int i = 0; i < city.length; i++) {
+            for (int j = 0; j <city[0].length ; j++) {
+
+        System.out.print(city[i][j]);
+            }
+            System.out.println();
+        }
+
         
 
 

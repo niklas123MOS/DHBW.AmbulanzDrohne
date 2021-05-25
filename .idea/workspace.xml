@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7677aafd-7553-498b-be94-f224ab722d62" name="Default Changelist" comment="" />
+    <list default="true" id="7677aafd-7553-498b-be94-f224ab722d62" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +22,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1sZF9k4HDuNG1BLRdL05tE3ATHC" />
   <component name="ProjectViewState">
@@ -100,10 +105,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="109" key="#Project_Structure" timestamp="1621072096716">
+    <state x="361" y="109" key="#Project_Structure" timestamp="1621938031392">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state x="361" y="109" key="#Project_Structure/0.30.1536.834@0.30.1536.834" timestamp="1621072096716" />
+    <state x="361" y="109" key="#Project_Structure/0.30.1536.834@0.30.1536.834" timestamp="1621938031392" />
     <state x="223" y="106" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1621080605173">
       <screen x="0" y="30" width="1536" height="834" />
     </state>

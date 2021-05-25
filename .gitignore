@@ -1,3 +1,7 @@
-/.gradle/
-/build/
-/.idea/
+/.gradle/*
+/build/*
+/.idea/*
+*.bin
+*.class
+*.lock
+.idea/workspace.xml

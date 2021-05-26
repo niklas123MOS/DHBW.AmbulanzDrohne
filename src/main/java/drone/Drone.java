@@ -14,6 +14,33 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Drone {
+    public CentralUnitMediator getCentralUnit() {
+        return centralUnit;
+    }
+
+    public LIDAR getLidar() {
+        return lidar;
+    }
+
+    public Camera getCamera() {
+        return camera;
+    }
+
+    public GPS getGps() {
+        return gps;
+    }
+
+    public Light getLight1() {
+        return light1;
+    }
+
+    public Light getLight2() {
+        return light2;
+    }
+
+    public Box getBox() {
+        return box;
+    }
 
     private Boom mainBoom01;
     private Boom mainBoom02;

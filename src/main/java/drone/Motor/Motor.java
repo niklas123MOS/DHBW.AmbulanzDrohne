@@ -16,27 +16,27 @@ public class Motor implements IMotorCommand, ICentralUnitPart {
 
     @Override
     public void takeOff() {
-        System.out.println("Take Off");
+        //System.out.println("Take Off");
     }
 
     @Override
     public void forward() {
-        System.out.println("Forward");
+        //System.out.println("Forward");
     }
 
     @Override
     public void left() {
-        System.out.println("left");
+        //System.out.println("left");
     }
 
     @Override
     public void right() {
-        System.out.println("right");
+        //System.out.println("right");
     }
 
     @Override
     public void land() {
-        System.out.println("land");
+        //System.out.println("land");
     }
 
     @Override

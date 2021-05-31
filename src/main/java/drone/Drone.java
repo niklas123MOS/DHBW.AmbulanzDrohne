@@ -11,9 +11,71 @@ import org.json.simple.parser.*;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Drone {
+
+    private Boom mainBoom01;
+    private Boom mainBoom02;
+    private Boom mainBoom03;
+    private Boom mainBoom04;
+
+    private boolean allowedAtNight;
+    private boolean antiTheftProtection;
+    private boolean enableHooter;
+
+    private CentralUnitMediator centralUnit = new CentralUnitMediator();
+
+    private LIDAR lidar;
+    private Camera camera;
+    private GPS gps;
+    private Light light1;
+    private Light light2;
+    private Box box;
+
+    private int x;
+    private int y;
+    private CompasDirection direction = CompasDirection.NORTH;
+
+
+    public static void main (String[] args){
+        if (args[0].equals("-configure")){
+            Drone drone = new Drone.Builder().mainBoom01().mainBoom02().mainBoom03().mainBoom04().setParameters().build();
+            drone.initCentralunit();
+            drone.menu();
+        }
+
+    }
+
+    public void flyRoute(/*übergabe der Route*/){
+
+        this.takeOff();
+
+        //abarbeiten der route
+        //for each element in route
+        //Kommando auswerten und entsprechende aktion left right forward ausführen
+
+        this.land();
+
+    }
+
+    public ArrayList<Electrode> getElectrodesFromBox(){
+        return this.box.takeElectrodes();
+    }
+
+    public void layBackElectrodesInBox(ArrayList<Electrode> electrodes){
+        this.box.layBackElectrodes(electrodes);
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public CentralUnitMediator getCentralUnit() {
         return centralUnit;
     }
@@ -40,35 +102,6 @@ public class Drone {
 
     public Box getBox() {
         return box;
-    }
-
-    private Boom mainBoom01;
-    private Boom mainBoom02;
-    private Boom mainBoom03;
-    private Boom mainBoom04;
-
-    private boolean allowedAtNight;
-    private boolean antiTheftProtection;
-    private boolean enableHooter;
-
-    private CentralUnitMediator centralUnit = new CentralUnitMediator();
-
-    private LIDAR lidar;
-    private Camera camera;
-    private GPS gps;
-    private Light light1;
-    private Light light2;
-    private Box box;
-
-
-
-    public static void main (String[] args){
-        if (args[0].equals("-configure")){
-            Drone drone = new Drone.Builder().mainBoom01().mainBoom02().mainBoom03().mainBoom04().setParameters().build();
-            drone.initCentralunit();
-            drone.menu();
-        }
-
     }
 
     public Boom getMainBoom01() {
@@ -114,6 +147,8 @@ public class Drone {
 
 
     public void takeOff(){
+
+        System.out.println("Take off at Position: x=" + x + " y=" + y);
         centralUnit.motor1Top.takeOff();
         centralUnit.motor1Bottom.takeOff();
         centralUnit.motor2Top.takeOff();
@@ -125,6 +160,10 @@ public class Drone {
     }
 
     public void left(){
+
+        System.out.println("Turn left");
+        direction = direction.previous();
+        System.out.println(direction);
         centralUnit.motor1Top.left();
         centralUnit.motor1Bottom.left();
         centralUnit.motor2Top.left();
@@ -136,6 +175,10 @@ public class Drone {
     }
 
     public void right(){
+
+        System.out.println("Turn right");
+        direction = direction.next();
+        System.out.println(direction);
         centralUnit.motor1Top.right();
         centralUnit.motor1Bottom.right();
         centralUnit.motor2Top.right();
@@ -148,6 +191,24 @@ public class Drone {
 
 
     public void forward(){
+
+        System.out.println("Flight Forward");
+
+        switch (direction){
+            case NORTH:
+                y++;
+                break;
+            case EAST:
+                x++;
+                break;
+            case SOUTH:
+                y--;
+                break;
+            case WEST:
+                x--;
+                break;
+        }
+
         centralUnit.motor1Top.forward();
         centralUnit.motor1Bottom.forward();
         centralUnit.motor2Top.forward();
@@ -159,6 +220,9 @@ public class Drone {
     }
 
     public void land(){
+
+        System.out.println("Landed at position: x=" + x + " y=" + y);
+
         centralUnit.motor1Top.land();
         centralUnit.motor1Bottom.land();
         centralUnit.motor2Top.land();

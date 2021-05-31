@@ -1,24 +1,46 @@
 package city;
 
+import drone.Drone;
+import drone.Electrode;
 import random.MersenneTwisterFast;
+
+import java.util.ArrayList;
 
 public class Human {
 
     String[][] face = new String[25][25];
     String id = "";
     int age;
+    boolean hasHeartAttack = false;
 
-    int coordinateX;
-    int coordinateY;
+    int x;
+    int y;
+
+    Smartphone smartphone;
+
+    Drone drone;
 
 
-    public Human() {
+    public Human(int coordinateX, int coordinateY) {
 
         createFace();
         createID();
         MersenneTwisterFast merTwi = new MersenneTwisterFast();
         this.age = merTwi.nextInt(10,100);
+        this.x = coordinateX;
+        this.y = coordinateY;
+        smartphone = new Smartphone();
+    }
 
+    public void reanimateHuman (Human human){
+        ArrayList<Electrode> electrodes = drone.getElectrodesFromBox();
+        human.setHasHeartAttack(false);
+        drone.layBackElectrodesInBox(electrodes);
+    }
+
+    public void callEmergencyCenter(Human human){
+
+        this.smartphone.callEmergencyCenter(human);
 
     }
 
@@ -35,11 +57,15 @@ public class Human {
     }
 
     public void setCoordinateX(int coordinateX) {
-        this.coordinateX = coordinateX;
+        this.x = coordinateX;
     }
 
     public void setCoordinateY(int coordinateY) {
-        this.coordinateY = coordinateY;
+        this.y = coordinateY;
+    }
+
+    public void setDrone(Drone drone) {
+        this.drone = drone;
     }
 
     private void createID() {
@@ -78,5 +104,9 @@ public class Human {
                 }
             }
         }
+    }
+
+    public void setHasHeartAttack(boolean hasHeartAttack) {
+        this.hasHeartAttack = hasHeartAttack;
     }
 }

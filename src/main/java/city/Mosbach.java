@@ -14,11 +14,11 @@ public class Mosbach {
             }
         }
 
-        this.cityarea[250][250] = "D";
-        this.cityarea[750][250] = "D";
-        this.cityarea[250][750] = "D";
-        this.cityarea[750][750] = "D";
-        this.cityarea[500][500] = "E";
+        this.cityarea[249][249] = "D";
+        this.cityarea[749][249] = "D";
+        this.cityarea[249][749] = "D";
+        this.cityarea[749][749] = "D";
+        this.cityarea[499][499] = "E";
 
         MersenneTwisterFast merTwi = new MersenneTwisterFast();
         int x;
@@ -60,8 +60,8 @@ public class Mosbach {
                     this.cityarea[x+2][y].equals("_") &&
                     this.cityarea[x+2][y-1].equals("_")
             ){
-                this.cityarea[x][y] = "H";
-                this.cityarea[x+1][y] = "H";
+                this.cityarea[y][x] = "H";
+                this.cityarea[y][x+1] = "H";
             } else i--;
 
         }

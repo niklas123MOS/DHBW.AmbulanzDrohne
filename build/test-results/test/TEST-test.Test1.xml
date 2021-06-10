@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.Test1" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-26T14:06:30" hostname="DEMULC008499" time="0.145">
+<testsuite name="test.Test1" tests="12" skipped="0" failures="0" errors="0" timestamp="2021-06-08T14:27:11" hostname="ASUSZenBook" time="0.053">
   <properties/>
-  <testcase name="Test02()" classname="test.Test1" time="0.145"/>
+  <testcase name="Test01()" classname="test.Test1" time="0.011"/>
+  <testcase name="Test02()" classname="test.Test1" time="0.032"/>
+  <testcase name="Test03()" classname="test.Test1" time="0.0"/>
+  <testcase name="Test04()" classname="test.Test1" time="0.0"/>
+  <testcase name="Test05()" classname="test.Test1" time="0.001"/>
+  <testcase name="Test06()" classname="test.Test1" time="0.001"/>
+  <testcase name="Test07()" classname="test.Test1" time="0.001"/>
+  <testcase name="Test08()" classname="test.Test1" time="0.001"/>
+  <testcase name="Test09()" classname="test.Test1" time="0.001"/>
+  <testcase name="Test10()" classname="test.Test1" time="0.001"/>
+  <testcase name="Test11()" classname="test.Test1" time="0.0"/>
+  <testcase name="Test12()" classname="test.Test1" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

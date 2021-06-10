@@ -1,10 +1,15 @@
 package drone;
 
+import Configuration.Configuration;
 import drone.boom.Boom;
 import drone.boom.MainBoom;
 import drone.boom.SubBoom;
 import drone.memento.DroneMemento;
 import drone.memento.MementoCaretaker;
+import drone.technologies.Camera;
+import drone.technologies.GPS;
+import drone.technologies.LIDAR;
+import drone.technologies.Light;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
@@ -34,9 +39,9 @@ public class Drone {
     private Light light2;
     private Box box;
 
-    private int x;
-    private int y;
-    private CompasDirection direction = CompasDirection.NORTH;
+    private int row;
+    private int col;
+    private Direction direction = Direction.TOP;
 
 
     public static void main (String[] args){
@@ -48,13 +53,21 @@ public class Drone {
 
     }
 
-    public void flyRoute(/*übergabe der Route*/){
+    public void flyRoute(ArrayList<Direction> route){
 
         this.takeOff();
 
-        //abarbeiten der route
-        //for each element in route
-        //Kommando auswerten und entsprechende aktion left right forward ausführen
+        for (Direction direction: route) {
+
+            while (this.direction != direction){
+                left();
+            }
+
+            forward();
+
+            System.out.println(row +" "+ col);
+
+        }
 
         this.land();
 
@@ -68,12 +81,12 @@ public class Drone {
         this.box.layBackElectrodes(electrodes);
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setRow(int row) {
+        this.row = row;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setCol(int col) {
+        this.col = col;
     }
 
     public CentralUnitMediator getCentralUnit() {
@@ -148,7 +161,7 @@ public class Drone {
 
     public void takeOff(){
 
-        System.out.println("Take off at Position: x=" + x + " y=" + y);
+        System.out.println("Take off at Position: row" + row + " col" + col);
         centralUnit.motor1Top.takeOff();
         centralUnit.motor1Bottom.takeOff();
         centralUnit.motor2Top.takeOff();
@@ -195,17 +208,33 @@ public class Drone {
         System.out.println("Flight Forward");
 
         switch (direction){
-            case NORTH:
-                y++;
+            case TOP:
+                row--;
                 break;
-            case EAST:
-                x++;
+            case TOPRIGHT:
+                row--;
+                col++;
                 break;
-            case SOUTH:
-                y--;
+            case RIGHT:
+                col++;
                 break;
-            case WEST:
-                x--;
+            case BOTTOMRIGHT:
+                row++;
+                col++;
+                break;
+            case BOTTOM:
+                row++;
+                break;
+            case BOTTOMLEFT:
+                row++;
+                col--;
+                break;
+            case LEFT:
+                col--;
+                break;
+            case TOPLEFT:
+                row--;
+                col--;
                 break;
         }
 
@@ -221,7 +250,7 @@ public class Drone {
 
     public void land(){
 
-        System.out.println("Landed at position: x=" + x + " y=" + y);
+        System.out.println("Landed at position: row=" + row + " col=" + col);
 
         centralUnit.motor1Top.land();
         centralUnit.motor1Bottom.land();

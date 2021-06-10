@@ -1,25 +1,29 @@
 package city;
 
-import drone.Camera;
+import EmergencyCenter.EmergencyCenter;
+import drone.technologies.Camera;
 
 public class Smartphone {
 
     Camera camera;
-    Human human;
+    char[][] scannedface;
+    String humanID;
 
-    public Smartphone(Human human) {
+
+    public Smartphone() {
         this.camera = new Camera();
-        this.human = human;
     }
 
-    public  void callEmergencyCenter(Human human){
-
-        //gesicht scannen
-        //callcenter anrufen, position von this.human übermitteln
-
-
-
+    public void scanFaceAndID(Human human) {
+        scannedface = camera.scanFace(human);
+        humanID = human.getId();
 
     }
 
+
+    public void callEmergencyCenter(int row, int col) {
+
+        EmergencyCenter.instance.getBot().acceptEmergencyCall(row, col, scannedface, humanID);
+
+    }
 }

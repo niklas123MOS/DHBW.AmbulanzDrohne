@@ -6,30 +6,30 @@ import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
 
-public class Human {
+public class Human extends Citypart{
 
-    String[][] face = new String[25][25];
+    char[][] face ;
     String id = "";
     int age;
-    boolean hasHeartAttack = false;
-
-    int x;
-    int y;
-
+    boolean hasHeartAttack;
     Smartphone smartphone;
 
     Drone drone;
+    Human partner;
 
 
-    public Human(int coordinateX, int coordinateY) {
-
+    public Human(char type, int row, int col, City city) {
+        super(type, row, col, city);
         createFace();
         createID();
         MersenneTwisterFast merTwi = new MersenneTwisterFast();
         this.age = merTwi.nextInt(10,100);
-        this.x = coordinateX;
-        this.y = coordinateY;
         smartphone = new Smartphone();
+        this.hasHeartAttack = false;
+    }
+
+    public void humanGetsHeartAttack(){
+        setHasHeartAttack(true);
     }
 
     public void reanimateHuman (Human human){
@@ -38,13 +38,8 @@ public class Human {
         drone.layBackElectrodesInBox(electrodes);
     }
 
-    public void callEmergencyCenter(Human human){
 
-        this.smartphone.callEmergencyCenter(human);
-
-    }
-
-    public String[][] getFace() {
+    public char[][] getFace() {
         return face;
     }
 
@@ -54,14 +49,6 @@ public class Human {
 
     public int getAge() {
         return age;
-    }
-
-    public void setCoordinateX(int coordinateX) {
-        this.x = coordinateX;
-    }
-
-    public void setCoordinateY(int coordinateY) {
-        this.y = coordinateY;
     }
 
     public void setDrone(Drone drone) {
@@ -82,6 +69,7 @@ public class Human {
     }
 
     private void createFace() {
+        this.face = new char[25][25];
         MersenneTwisterFast merTwi = new MersenneTwisterFast();
         int randInt = 0;
         for (int i = 0; i <25 ; i++) {
@@ -90,16 +78,16 @@ public class Human {
 
                 switch (randInt){
                     case 0:
-                        face[i][j]=".";
+                        face[i][j]='.';
                         break;
                     case 1:
-                        face[i][j]="+";
+                        face[i][j]='+';
                         break;
                     case 2:
-                        face[i][j]="*";
+                        face[i][j]='*';
                         break;
                     case 3:
-                        face[i][j]="#";
+                        face[i][j]='#';
                         break;
                 }
             }
@@ -109,4 +97,15 @@ public class Human {
     public void setHasHeartAttack(boolean hasHeartAttack) {
         this.hasHeartAttack = hasHeartAttack;
     }
+
+    public void setPartner(Human partner) {
+        this.partner = partner;
+    }
+
+    public void callEmergencyCenter () {
+        smartphone.scanFaceAndID(partner);
+        smartphone.callEmergencyCenter(getRow(), getCol()-1); //to land drone next to the human
+
+    }
+
 }

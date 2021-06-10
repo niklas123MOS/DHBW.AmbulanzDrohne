@@ -1,23 +1,21 @@
 package test;
 
-import city.Mosbach;
+import city.City;
+import city.Citypart;
+import city.Human;
 import drone.Drone;
-import drone.boom.Boom;
 import org.junit.jupiter.api.*;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /* --- test cases in order 01 to 12 ---
     [01] Die Drohne wird vollständig durch den Builder erstellt
-    [02] Das Stadtgebiet Mosbach wird vollständig aufgebaut
+    [02] Das Stadtgebiet City wird vollständig aufgebaut
     [03] Erleidet ein Mensch eines Paares einen Herzinfarktt wird ein Notruf an das EC abgesetzt
     [04] Der Bot des EC empfängt den Notruf und die Positionsangabe des Anrufers
     [05] Für die Pfadberechnung akzeptiert das EC nur digital signierte Komponenten
     [06] Die Drohne mit der geringsten Entfernung zu der Position des Anrufers wird selektiert
-    [07] Die eindeutige ID zu einem Geischt wird korrekt ermittelt
+    [07] Die eindeutige ID zu einem Gesicht wird korrekt ermittelt
     [08] Die Zentraleinheit der Drohne empfängt ein Event mit vollständigen Informationen (ID, Route)
     [09] Die Zentraleinheit übersetzt die Informationen zur Route in korrekte Kommandos der Drohne
     [10] Die Drohne landet neben dem Menschen, welcher den Notruf abgesetzt hat
@@ -26,11 +24,11 @@ import java.util.stream.Collectors;
 */
 
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Test1 {
     Drone drone = new Drone.Builder().mainBoom01().mainBoom02().mainBoom03().mainBoom04().setParameters().build();
-    Mosbach mosbach = new Mosbach();
+    City mosbach = new City();
 
     @BeforeAll
     public void setup() {
@@ -38,7 +36,7 @@ public class Test1 {
     }
 
     @Test
-    @Order(1)
+    //@Order(1)
     public void Test01() {
         //[01] Die Drohne wird vollständig durch den Builder erstellt
         //vier Hauptausleger
@@ -63,15 +61,15 @@ public class Test1 {
     }
 
     @Test
-    @Order(2)
+    //@Order(2)
     public void Test02() {
-        //[02] Das Stadtgebiet Mosbach wird vollständig aufgebaut
-        String[][] mosbachCity = mosbach.getCityarea();
+        //[02] Das Stadtgebiet City wird vollständig aufgebaut
+        Citypart[][] mosbachCity = mosbach.getCityarea();
         //Matrixlänge = 1000
         Assertions.assertEquals(1000, mosbachCity.length);
         // Matrixbreite = 1000
-        for (int i = 0; i < mosbachCity.length ; i++) {
-            Assertions.assertEquals(1000, mosbachCity[i].length);
+        for (int k = 0; k < mosbachCity.length ; k++) {
+            Assertions.assertEquals(1000, mosbachCity[k].length);
         }
         // Anzahl der Zeichen
         int countR = 0;
@@ -79,17 +77,19 @@ public class Test1 {
         int countD = 0;
         int countE = 0;
         int countH = 0;
+
+
         for (int i = 0; i < mosbachCity.length ; i++) {
-            for (int j = 0; j < mosbachCity[i].length ; j++) {
-                if(mosbachCity[i][j].equals("R")) {
+            for (int j = 0; j < mosbachCity[0].length ; j++) {
+                if(mosbachCity[i][j].getType()=='R') {
                     countR++;
-                } else if (mosbachCity[i][j].equals("S")) {
+                } else if (mosbachCity[i][j].getType()=='S') {
                     countS++;
-                } else if (mosbachCity[i][j].equals("D")) {
+                } else if (mosbachCity[i][j].getType()=='D') {
                     countD++;
-                } else if (mosbachCity[i][j].equals("E")) {
+                } else if (mosbachCity[i][j].getType()=='E') {
                     countE++;
-                } else if (mosbachCity[i][j].equals("H")) {
+                } else if (mosbachCity[i][j].getType()=='H') {
                     countH++;
                 }
 
@@ -108,27 +108,27 @@ public class Test1 {
             for (int j = 1; j < mosbachCity[i].length-1 ; j++) {
 
                  if (mosbachCity[i][j].equals("H")) {
-                    String humanLeft = mosbachCity[i][j-1];
-                    String humanRight = mosbachCity[i][j+1];
-                    String humanAbove = mosbachCity[i-1][j];
-                    String humanBottom = mosbachCity[i+1][j];
+                    Citypart humanLeft = mosbachCity[i][j-1];
+                    Citypart humanRight = mosbachCity[i][j+1];
+                    Citypart humanAbove = mosbachCity[i-1][j];
+                    Citypart humanBottom = mosbachCity[i+1][j];
 
-                   ArrayList<String> neighbors = new ArrayList<>();
+                   ArrayList<Citypart> neighbors = new ArrayList<>();
                    neighbors.add(humanLeft);
                    neighbors.add(humanRight);
                    neighbors.add(humanAbove);
                    neighbors.add(humanBottom);
 
-                     for (String neighbor: neighbors) {
-                         if (neighbor.equals("H")) {
+                     for (Citypart neighbor: neighbors) {
+                         if (neighbor.getType()==('H')) {
                              countH1++;
                          }
                      }
                     if (countH1 == 1) {
-                        humanTest = mosbachCity[i][j - 1].equals("_") || mosbachCity[i][j - 1].equals("H") &&
-                                mosbachCity[i][j + 1].equals("_") || mosbachCity[i][j + 1].equals("H") &&
-                                mosbachCity[i - 1][j].equals("_") || mosbachCity[i - 1][j].equals("H") &&
-                                mosbachCity[i + 1][j].equals("_") || mosbachCity[i + 1][j].equals("H");
+                        humanTest = mosbachCity[i][j - 1].getType()==(' ') || mosbachCity[i][j - 1].getType()==('H') &&
+                                mosbachCity[i][j + 1].getType()==(' ') || mosbachCity[i][j + 1].getType()==('H') &&
+                                mosbachCity[i - 1][j].getType()==(' ') || mosbachCity[i - 1][j].getType()==('H') &&
+                                mosbachCity[i + 1][j].getType()==(' ') || mosbachCity[i + 1][j].getType()==('H');
                     }
                      Assertions.assertTrue(humanTest);
                 }
@@ -140,70 +140,70 @@ public class Test1 {
     }
 
     @Test
-    @Order(3)
+    //@Order(3)
     public void Test03() {
         //[03] Erleidet ein Mensch eines Paares einen Herzinfarkt wird ein Notruf an das EC abgesetzt
 
     }
 
     @Test
-    @Order(4)
+    //@Order(4)
     public void Test04() {
         // [04] Der Bot des EC empfängt den Notruf und die Positionsangabe des Anrufers
 
     }
 
     @Test
-    @Order(5)
+    //@Order(5)
     public void Test05() {
         //[05] Für die Pfadberechnung akzeptiert das EC nur digital signierte Komponenten
 
     }
 
     @Test
-    @Order(6)
+    //@Order(6)
     public void Test06() {
         //[06] Die Drohne mit der geringsten Entfernung zu der Position des Anrufers wird selektiert
 
     }
 
     @Test
-    @Order(7)
+    //@Order(7)
     public void Test07() {
         //[07] Die eindeutige ID zu einem Gesicht wird korrekt ermittelt
 
     }
 
     @Test
-    @Order(8)
+    //@Order(8)
     public void Test08() {
         //[08] Die Zentraleinheit der Drohne empfängt ein Event mit vollständigen Informationen (ID, Route)
 
     }
 
     @Test
-    @Order(9)
+    //@Order(9)
     public void Test09() {
         // [09] Die Zentraleinheit übersetzt die Informationen zur Route in korrekte Kommandos der Drohne
 
     }
 
     @Test
-    @Order(10)
+    //@Order(10)
     public void Test10() {
         //[10] Die Drohne landet neben dem Menschen, welcher den Notruf abgesetzt hat
 
     }
 
     @Test
-    @Order(11)
+    //@Order(11)
     public void Test11() {
         //[11] Nach Landung der Drohne wird der Mensch mit dem Herzinfarkt erfolgreich reanimiert
 
     }
 
     @Test
-    @Order(12)
+    //@Order(12)
     public void Test12() {
         // [12] Nach Reanimation bzw. dem Zurücklegen der Elektroden kehrt die Drohne zum Port zurück
 

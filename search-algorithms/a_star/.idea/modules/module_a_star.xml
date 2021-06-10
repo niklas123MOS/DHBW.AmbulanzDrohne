@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_a_star" default="compile.module.a_star">
+  <dirname property="module.a_star.basedir" file="${ant.file.module_a_star}"/>
+  
+  <property name="module.jdk.home.a_star" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.a_star" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.a_star" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.a_star" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="a_star.output.dir" value="${module.a_star.basedir}/../../out/production/a_star"/>
+  <property name="a_star.testoutput.dir" value="${module.a_star.basedir}/../../out/test/a_star"/>
+  
+  <path id="a_star.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="a_star.module.production.classpath">
+    <path refid="${module.jdk.classpath.a_star}"/>
+  </path>
+  
+  <path id="a_star.runtime.production.module.classpath">
+    <pathelement location="${a_star.output.dir}"/>
+  </path>
+  
+  <path id="a_star.module.classpath">
+    <path refid="${module.jdk.classpath.a_star}"/>
+    <pathelement location="${a_star.output.dir}"/>
+  </path>
+  
+  <path id="a_star.runtime.module.classpath">
+    <pathelement location="${a_star.testoutput.dir}"/>
+    <pathelement location="${a_star.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.a_star">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.a_star">
+    <patternset refid="excluded.from.module.a_star"/>
+  </patternset>
+  
+  
+  <target name="compile.module.a_star" depends="compile.module.a_star.production,compile.module.a_star.tests" description="Compile module a_star"/>
+  
+  <target name="compile.module.a_star.production" depends="register.custom.compilers" description="Compile module a_star; production classes"/>
+  
+  <target name="compile.module.a_star.tests" depends="register.custom.compilers,compile.module.a_star.production" description="compile module a_star; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.a_star" description="cleanup module">
+    <delete dir="${a_star.output.dir}"/>
+    <delete dir="${a_star.testoutput.dir}"/>
+  </target>
+</project>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_a_star.main" default="compile.module.a_star.main">
+  <dirname property="module.a_star.main.basedir" file="${ant.file.module_a_star.main}"/>
+  
+  <property name="module.jdk.home.a_star.main" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.a_star.main" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.a_star.main" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.a_star.main" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="a_star.main.output.dir" value="${module.a_star.main.basedir}/../../build/classes/java/main"/>
+  <property name="a_star.main.testoutput.dir" value="${module.a_star.main.basedir}/../../build/classes/java/main"/>
+  
+  <path id="a_star.main.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="a_star.main.module.production.classpath">
+    <path refid="${module.jdk.classpath.a_star.main}"/>
+  </path>
+  
+  <path id="a_star.main.runtime.production.module.classpath">
+    <pathelement location="${a_star.main.output.dir}"/>
+  </path>
+  
+  <path id="a_star.main.module.classpath">
+    <path refid="${module.jdk.classpath.a_star.main}"/>
+    <pathelement location="${a_star.main.output.dir}"/>
+  </path>
+  
+  <path id="a_star.main.runtime.module.classpath">
+    <pathelement location="${a_star.main.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.a_star.main">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.a_star.main">
+    <patternset refid="excluded.from.module.a_star.main"/>
+  </patternset>
+  
+  <path id="a_star.main.module.sourcepath">
+    <dirset dir="${module.a_star.main.basedir}/../../src/main">
+      <include name="java"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.a_star.main" depends="compile.module.a_star.main.production,compile.module.a_star.main.tests" description="Compile module a_star.main"/>
+  
+  <target name="compile.module.a_star.main.production" depends="register.custom.compilers" description="Compile module a_star.main; production classes">
+    <mkdir dir="${a_star.main.output.dir}"/>
+    <javac2 destdir="${a_star.main.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.a_star.main}/javac">
+      <compilerarg line="${compiler.args.a_star.main}"/>
+      <bootclasspath refid="a_star.main.module.bootclasspath"/>
+      <classpath refid="a_star.main.module.production.classpath"/>
+      <src refid="a_star.main.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.a_star.main"/>
+    </javac2>
+    
+    <copy todir="${a_star.main.output.dir}">
+      <fileset dir="${module.a_star.main.basedir}/../../src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.a_star.main.basedir}/../../src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.a_star.main.tests" depends="register.custom.compilers,compile.module.a_star.main.production" description="compile module a_star.main; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.a_star.main" description="cleanup module">
+    <delete dir="${a_star.main.output.dir}"/>
+    <delete dir="${a_star.main.testoutput.dir}"/>
+  </target>
+</project>

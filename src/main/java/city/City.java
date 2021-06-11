@@ -2,7 +2,6 @@ package city;
 
 import random.MersenneTwisterFast;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class City {
@@ -12,6 +11,7 @@ public class City {
     private int h = 1000;
 
     Citypart[][] cityarea = new Citypart[1000][1000];
+    ArrayList<DronePort> dronePorts = new ArrayList<>();
 
     private ArrayList<Human[]> humanPairs = new ArrayList<>();
 
@@ -31,9 +31,12 @@ public class City {
         Human humanWithHeartAttack = humanPairs.get(pairNumber)[humanWithHeartAttackID];
         Human humanWithNoHeartAttack = humanPairs.get(pairNumber)[humanWithNoHeartAttackID];
 
-        humanWithHeartAttack.setHasHeartAttack(true);
+        humanWithHeartAttack.humanGetsHeartAttack();
 
         humanWithNoHeartAttack.callEmergencyCenter();
+        humanWithNoHeartAttack.setDrone(dronePorts.get(EmergencyParameters.instance.dronePortID).getDrone());
+
+        humanWithNoHeartAttack.reanimatePartner();
 
     }
 
@@ -44,13 +47,17 @@ public class City {
             }
         }
 
-        this.cityarea[249][249] = new DronePort('D', 249, 249, this, 0);
-        this.cityarea[749][249] = new DronePort('D', 249, 749, this, 1);
-        ;
-        this.cityarea[249][749] = new DronePort('D', 749, 249, this, 2);
-        ;
-        this.cityarea[749][749] = new DronePort('D', 749, 749, this, 3);
-        ;
+
+        dronePorts.add(new DronePort('D', 249, 249, this, 0));
+        dronePorts.add(new DronePort('D', 249, 749, this, 1));
+        dronePorts.add(new DronePort('D', 749, 249, this, 2));
+        dronePorts.add(new DronePort('D', 749, 749, this, 3));
+
+        this.cityarea[249][249] = dronePorts.get(0);
+        this.cityarea[749][249] = dronePorts.get(1);
+        this.cityarea[249][749] = dronePorts.get(2);
+        this.cityarea[749][749] = dronePorts.get(3);
+
         this.cityarea[499][499] = new Citypart('E', 499, 499, this);
 
         MersenneTwisterFast merTwi = new MersenneTwisterFast();

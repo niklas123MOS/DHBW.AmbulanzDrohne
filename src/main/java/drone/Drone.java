@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Drone {
+public class Drone implements IElectrodesListener{
 
     private Boom mainBoom01;
     private Boom mainBoom02;
@@ -43,6 +43,8 @@ public class Drone {
     private int col;
     private Direction direction = Direction.TOP;
 
+    private ArrayList<Direction> route;
+
 
     public static void main (String[] args){
         if (args[0].equals("-configure")){
@@ -53,11 +55,11 @@ public class Drone {
 
     }
 
-    public void flyRoute(ArrayList<Direction> route){
+    public void flyRoute(){
 
         this.takeOff();
 
-        for (Direction direction: route) {
+        for (Direction direction: this.route) {
 
             while (this.direction != direction){
                 left();
@@ -71,6 +73,10 @@ public class Drone {
 
         this.land();
 
+    }
+
+    public void setRoute(ArrayList<Direction> route) {
+        this.route = route;
     }
 
     public ArrayList<Electrode> getElectrodesFromBox(){
@@ -379,6 +385,31 @@ public class Drone {
         this.light1 = builder.light1;
         this.light2 = builder.light2;
         this.box = builder.box;
+    }
+
+    @Override
+    public void laidBackElectrodes() {
+        flyBackToDronePort();
+    }
+
+    private void flyBackToDronePort() {
+
+        this.takeOff();
+
+        for (Direction direction: this.route) {
+
+            while (this.direction != direction.getOppositeDirection()){
+                left();
+            }
+
+            forward();
+
+            System.out.println(row +" "+ col);
+
+        }
+        
+        this.land();
+
     }
 
     public static class Builder {

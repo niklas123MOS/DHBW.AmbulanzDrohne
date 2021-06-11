@@ -37,8 +37,8 @@ public class DstarMap {
         return start;
     }
 
-    public void setStart(int x, int y) {
-        this.start = getNode(x, y);
+    public void setStart(int row, int col) {
+        this.start = getNode(row, col);
         if (!this.start.getState().equals("O")) {
             throw new IllegalArgumentException("can't set Start on a blocked tile!");
         }
@@ -49,8 +49,8 @@ public class DstarMap {
         return goal;
     }
 
-    public void setGoal(int x, int y) {
-        this.goal = getNode(x, y);
+    public void setGoal(int row, int col) {
+        this.goal = getNode(row, col);
         if (!goal.getState().equals("O")) {
             throw new IllegalArgumentException("can't set Goal on a blocked tile!");
         }

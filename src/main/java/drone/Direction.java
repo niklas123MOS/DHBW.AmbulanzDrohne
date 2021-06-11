@@ -10,6 +10,11 @@ public enum Direction {
     }
 
     public Direction previous(){
-        return vals[(this.ordinal()+3) % vals.length];
+        return vals[(this.ordinal()+7) % vals.length];
     }
+
+    public Direction getOppositeDirection(){
+        return vals[(this.ordinal()+4) % vals.length];
+    }
+
 }

@@ -2,6 +2,7 @@ package city;
 
 import drone.Drone;
 import drone.Electrode;
+import drone.ElectrodesObserver;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
@@ -29,13 +30,27 @@ public class Human extends Citypart{
     }
 
     public void humanGetsHeartAttack(){
+        System.out.println("Human " + this + " has heart Attack");
+
         setHasHeartAttack(true);
     }
 
-    public void reanimateHuman (Human human){
+    public void reanimatePartner(){
+        System.out.println("Human " + this + " reanimates Partner " + partner );
+
+
+
+        System.out.println("Take electrodes from " + drone );
         ArrayList<Electrode> electrodes = drone.getElectrodesFromBox();
-        human.setHasHeartAttack(false);
+        partner.setHasHeartAttack(false);
+
+        System.out.println("Reanimation successfull. Lay Back electrodes");
+
+        ElectrodesObserver electrodesObserver = new ElectrodesObserver();
+        electrodesObserver.addListener(drone);
+
         drone.layBackElectrodesInBox(electrodes);
+        electrodesObserver.layBackElectrodes();
     }
 
 

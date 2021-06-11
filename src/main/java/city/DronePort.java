@@ -13,13 +13,13 @@ import java.util.ArrayList;
 
 public class DronePort extends Subscriber {
 
-    Drone drone;
-    int dronePortID;
+    private Drone drone;
+    private int dronePortID;
 
-    int workingAreaAbove;
-    int workingAreaRight;
-    int workingAreaBelow;
-    int workingAreaLeft;
+    private int workingAreaAbove;
+    private int workingAreaRight;
+    private int workingAreaBelow;
+    private int workingAreaLeft;
 
 
     public DronePort(char type, int row, int col, City city, int dronePortID) {
@@ -102,7 +102,8 @@ public class DronePort extends Subscriber {
 
         ArrayList<Direction> directionsRoute= generateRoute(route);
 
-        drone.flyRoute(directionsRoute);
+        drone.setRoute(directionsRoute);
+        drone.flyRoute();
 
     }
 

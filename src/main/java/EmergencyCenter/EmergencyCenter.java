@@ -1,7 +1,9 @@
 package EmergencyCenter;
 
 import city.DronePort;
+import city.EmergencyParameters;
 import com.google.common.eventbus.EventBus;
+import javafx.application.Application;
 
 import java.util.ArrayList;
 
@@ -49,6 +51,7 @@ public enum EmergencyCenter {
         PathPlanner pathPlanner = new PathPlanner();
         int[][] route = pathPlanner.executeFindPath(dronePort.getRow(), dronePort.getCol(), row, col, dronePort.getCity().getCityareaChar());
 
+
         for (int i = 0; i <route.length ; i++) {
 
             System.out.print(route[i][0] + " ");
@@ -58,6 +61,7 @@ public enum EmergencyCenter {
 
 
         String[][] encryptedRoute = encryptRoute(route);
+        EmergencyParameters.instance.dronePortID = dronePortID;
 
         eventBus.post(new SendDroneEvent(dronePortID, encryptedRoute, humanID, face));
     }

@@ -89,7 +89,7 @@ public class DronePort extends Subscriber {
         return drone;
     }
 
-    public void letDroneFly() {
+    private void letDroneFly() {
 
         ArrayList<Direction> directionsRoute = generateRoute(route);
 

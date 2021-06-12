@@ -6,27 +6,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/city/Human.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/city/Human.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/drone/CentralUnitMediator.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/drone/CentralUnitMediator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/drone/Drone$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/drone/Drone$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/drone/Drone$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/drone/Drone$Builder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/drone/Drone.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/drone/Drone.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/EmergencyCenter/PathPlanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/EmergencyCenter/PathPlanner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/city/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/city/City.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/city/DronePort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/city/DronePort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/city/EmergencyParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/city/EmergencyParameters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/city/Human.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/city/Human.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/drone/Drone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/drone/Drone.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +62,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../02_application" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -100,7 +90,7 @@
       <recent name="test" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.AmbulanceTest">
+  <component name="RunManager" selected="Application.Application">
     <configuration name="Application (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="EmergencyCenter.algorithms.AStar.Application" />
       <module name="Ambulance-drone.main" />
@@ -264,42 +254,42 @@
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="549" y="206" key="FileChooserDialogImpl/0.30.1536.834@0.30.1536.834" timestamp="1623410319884" />
-    <state width="1537" height="122" key="GridCell.Tab.0.bottom" timestamp="1623494954807">
+    <state width="1537" height="437" key="GridCell.Tab.0.bottom" timestamp="1623497573992">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state width="1877" height="111" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1622037986728" />
-    <state width="1537" height="122" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1623494954807" />
-    <state width="1537" height="122" key="GridCell.Tab.0.center" timestamp="1623494954807">
+    <state width="1537" height="437" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1623497573992" />
+    <state width="1537" height="437" key="GridCell.Tab.0.center" timestamp="1623497573992">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state width="1877" height="111" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1622037986727" />
-    <state width="1537" height="122" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1623494954807" />
-    <state width="1537" height="122" key="GridCell.Tab.0.left" timestamp="1623494954807">
+    <state width="1537" height="437" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1623497573992" />
+    <state width="1537" height="437" key="GridCell.Tab.0.left" timestamp="1623497573991">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state width="1877" height="111" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1622037986725" />
-    <state width="1537" height="122" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1623494954807" />
-    <state width="1537" height="122" key="GridCell.Tab.0.right" timestamp="1623494954807">
+    <state width="1537" height="437" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1623497573991" />
+    <state width="1537" height="437" key="GridCell.Tab.0.right" timestamp="1623497573992">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state width="1877" height="111" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1622037986727" />
-    <state width="1537" height="122" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1623494954807" />
-    <state width="1537" height="229" key="GridCell.Tab.1.bottom" timestamp="1623492072214">
+    <state width="1537" height="437" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1623497573992" />
+    <state width="1537" height="229" key="GridCell.Tab.1.bottom" timestamp="1623495231179">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1537" height="229" key="GridCell.Tab.1.bottom/0.30.1536.834@0.30.1536.834" timestamp="1623492072214" />
-    <state width="1537" height="229" key="GridCell.Tab.1.center" timestamp="1623492072214">
+    <state width="1537" height="229" key="GridCell.Tab.1.bottom/0.30.1536.834@0.30.1536.834" timestamp="1623495231179" />
+    <state width="1537" height="229" key="GridCell.Tab.1.center" timestamp="1623495231179">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1537" height="229" key="GridCell.Tab.1.center/0.30.1536.834@0.30.1536.834" timestamp="1623492072214" />
-    <state width="1537" height="229" key="GridCell.Tab.1.left" timestamp="1623492072214">
+    <state width="1537" height="229" key="GridCell.Tab.1.center/0.30.1536.834@0.30.1536.834" timestamp="1623495231179" />
+    <state width="1537" height="229" key="GridCell.Tab.1.left" timestamp="1623495231179">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1537" height="229" key="GridCell.Tab.1.left/0.30.1536.834@0.30.1536.834" timestamp="1623492072214" />
-    <state width="1537" height="229" key="GridCell.Tab.1.right" timestamp="1623492072214">
+    <state width="1537" height="229" key="GridCell.Tab.1.left/0.30.1536.834@0.30.1536.834" timestamp="1623495231179" />
+    <state width="1537" height="229" key="GridCell.Tab.1.right" timestamp="1623495231179">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state width="1537" height="229" key="GridCell.Tab.1.right/0.30.1536.834@0.30.1536.834" timestamp="1623492072214" />
+    <state width="1537" height="229" key="GridCell.Tab.1.right/0.30.1536.834@0.30.1536.834" timestamp="1623495231179" />
     <state x="498" y="30" key="SettingsEditor" timestamp="1623162560579">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
@@ -332,16 +322,6 @@
           <url>file://$PROJECT_DIR$/src/test/java/test/AmbulanceTest.java</url>
           <line>169</line>
           <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/EmergencyCenter/Bot.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/drone/Drone.java</url>
-          <line>535</line>
-          <option name="timeStamp" value="39" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

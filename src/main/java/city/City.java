@@ -164,7 +164,4 @@ public class City {
         return humanWithHeartAttack;
     }
 
-    public Human getHumanWithNoHeartAttack() {
-        return humanWithNoHeartAttack;
-    }
 }

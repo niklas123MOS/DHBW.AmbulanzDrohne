@@ -38,7 +38,7 @@ public class PathPlanner {
     }
 
 
-    public boolean isComponentSigned() {
+    private boolean isComponentSigned() {
         try {
             ProcessBuilder processBuilder = new ProcessBuilder("C:\\Program Files\\Java\\jdk-16.0.1\\bin\\jarsigner", "-verify", Configuration.instance.getComponentPath());
             Process process = processBuilder.start();

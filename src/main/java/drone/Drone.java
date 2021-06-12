@@ -137,7 +137,7 @@ public class Drone implements IElectrodesListener {
 
     }
 
-    public char getBestTurn(Direction startDirection, Direction goalDirection) {
+    private char getBestTurn(Direction startDirection, Direction goalDirection) {
         int countLeft = 0;
         int countRight = 0;
 
@@ -278,7 +278,7 @@ public class Drone implements IElectrodesListener {
     }
 
 
-    public void takeOff() {
+    private void takeOff() {
 
         System.out.println("Drone " + this + " take off at Position: row: " + row + " col: " + col);
         centralUnit.motor1Top.takeOff();
@@ -291,7 +291,7 @@ public class Drone implements IElectrodesListener {
         centralUnit.motor4Bottom.takeOff();
     }
 
-    public void left() {
+    private void left() {
 
         System.out.println("Turn left");
         direction = direction.previous();
@@ -306,7 +306,7 @@ public class Drone implements IElectrodesListener {
         centralUnit.motor4Bottom.left();
     }
 
-    public void right() {
+    private void right() {
 
         System.out.println("Turn right");
         direction = direction.next();
@@ -322,7 +322,7 @@ public class Drone implements IElectrodesListener {
     }
 
 
-    public void forward() {
+    private void forward() {
 
         System.out.println("Flight Forward");
 
@@ -367,7 +367,7 @@ public class Drone implements IElectrodesListener {
         centralUnit.motor4Bottom.forward();
     }
 
-    public void land() {
+    private void land() {
 
         System.out.println("Landed at position: row=" + row + " col=" + col);
 
@@ -506,7 +506,7 @@ public class Drone implements IElectrodesListener {
     @Override
     public void laidBackElectrodes() {
 
-        //get norofication from listener
+        //get notification from listener
         flyBackToDronePort();
     }
 

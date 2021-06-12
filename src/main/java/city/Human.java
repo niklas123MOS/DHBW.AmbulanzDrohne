@@ -40,10 +40,14 @@ public class Human extends Citypart {
         System.out.println("Human " + this + " reanimates Partner " + partner);
 
         System.out.println("Take electrodes from " + drone);
-        ArrayList<Electrode> electrodes = drone.getElectrodesFromBox();
-        partner.setHasHeartAttack(false);
 
-        System.out.println("Reanimation successfull. Lay Back electrodes");
+        //Partner takes electrodes
+        ArrayList<Electrode> electrodes = drone.getElectrodesFromBox();
+
+        //Human reanimates his Partner
+        partner.reanimate();
+
+        System.out.println("Reanimation successfull. Lay Back electrodes in Box");
 
         ElectrodesObserver electrodesObserver = new ElectrodesObserver();
         electrodesObserver.addListener(drone);
@@ -106,6 +110,10 @@ public class Human extends Citypart {
                 }
             }
         }
+    }
+
+    public void reanimate(){
+        setHasHeartAttack(false);
     }
 
     public void setHasHeartAttack(boolean hasHeartAttack) {

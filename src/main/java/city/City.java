@@ -31,11 +31,13 @@ public class City {
         int humanWithHeartAttackID = merTwi.nextInt(0, 1);
         int humanWithNoHeartAttackID = humanWithHeartAttackID == 0 ? 1 : 0;
 
+        //Select Random Human Pair and random human with Heart Attack
         humanWithHeartAttack = humanPairs.get(pairNumber)[humanWithHeartAttackID];
         humanWithNoHeartAttack = humanPairs.get(pairNumber)[humanWithNoHeartAttackID];
 
         humanWithHeartAttack.humanGetsHeartAttack();
 
+        //Position of caller
         emergencyRow = humanWithNoHeartAttack.getRow();
         emergencyCol = humanWithNoHeartAttack.getCol();
 

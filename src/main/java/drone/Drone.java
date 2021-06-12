@@ -48,7 +48,7 @@ public class Drone implements IElectrodesListener {
 
     private Direction direction = Direction.TOP;
 
-    private ArrayList<Direction> route;
+    private ArrayList<Direction> route = new ArrayList<Direction>();
 
 
     public static void main(String[] args) {
@@ -70,6 +70,9 @@ public class Drone implements IElectrodesListener {
     public void flyRoute() {
 
         this.takeOff();
+        System.out.println("Drone " + this + " flying to Position: ");
+        System.out.println("         row: " + this.emergencyRow);
+        System.out.println("         col: " + this.emergencyCol);
 
         for (Direction direction : this.route) {
 
@@ -77,32 +80,28 @@ public class Drone implements IElectrodesListener {
             int countRight = 0;
             Direction currentDirection = this.direction;
 
-            while (currentDirection != direction) {
-                currentDirection = currentDirection.previous();
-                countLeft++;
-            }
 
-            currentDirection = this.direction;
+            // find out if its better to turn left or right
+            char turnSide = getBestTurn(currentDirection, direction);
 
-            while (currentDirection != direction) {
-                currentDirection = currentDirection.next();
-                countRight++;
-            }
 
+            //turn until direction is right
             while (this.direction != direction) {
-                if (countLeft < countRight) {
+                if (turnSide == 'l') {
                     left();
-                } else if (countRight < countLeft) {
+                } else if (turnSide == 'r') {
                     right();
                 }
 
             }
-
+            //fly forward in the right direction
             forward();
 
         }
 
+        //land on landingposition
         this.land();
+
 
     }
 
@@ -111,19 +110,58 @@ public class Drone implements IElectrodesListener {
         if (route == null) return;
 
         this.takeOff();
-
+        System.out.println("Drone " + this + " flying back to Droneport: ");
 
         for (Direction direction : this.route) {
 
-            while (this.direction != direction.getOppositeDirection()) {
-                left();
-            }
+            Direction currentDirection = this.direction;
 
+            // find out if its better to turn left or right
+            char turnSide = getBestTurn(currentDirection, direction.getOppositeDirection());
+
+            //turn until direction is right
+            while (this.direction != direction.getOppositeDirection()) {
+                if (turnSide == 'l') {
+                    left();
+                } else if (turnSide == 'r') {
+                    right();
+                }
+
+            }
+            //fly forward in the right direction
             forward();
 
         }
 
         this.land();
+
+    }
+
+    public char getBestTurn(Direction startDirection, Direction goalDirection) {
+        int countLeft = 0;
+        int countRight = 0;
+
+        Direction currentDirection = startDirection;
+
+        // find out if its better to turn left or right
+        //counts the steps until right direction is reached
+        // first turning left, second turning right
+
+        while (currentDirection != goalDirection) {
+            currentDirection = currentDirection.previous();
+            countLeft++;
+        }
+
+        currentDirection = startDirection;
+
+        while (currentDirection != goalDirection) {
+            currentDirection = currentDirection.next();
+            countRight++;
+        }
+
+        if (countLeft < countRight) {
+            return 'l';
+        } else return 'r';
 
     }
 
@@ -467,6 +505,8 @@ public class Drone implements IElectrodesListener {
 
     @Override
     public void laidBackElectrodes() {
+
+        //get norofication from listener
         flyBackToDronePort();
     }
 

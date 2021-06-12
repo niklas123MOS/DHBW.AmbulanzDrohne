@@ -52,7 +52,7 @@ public class DronePort extends Subscriber {
 
             this.route = decryptRoute(eventSendDrone.getRoute());
             this.humanID = eventSendDrone.getHumanID();
-            letDroneFly(route);
+            letDroneFly();
 
         }
 
@@ -89,7 +89,7 @@ public class DronePort extends Subscriber {
         return drone;
     }
 
-    public void letDroneFly(int[][] route) {
+    public void letDroneFly() {
 
         ArrayList<Direction> directionsRoute = generateRoute(route);
 

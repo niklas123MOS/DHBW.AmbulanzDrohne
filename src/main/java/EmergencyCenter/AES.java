@@ -14,8 +14,7 @@ public class AES {
     private static SecretKeySpec secretKey;
     private static byte[] key;
 
-    public static void setKey(String myKey)
-    {
+    public static void setKey(String myKey) {
         MessageDigest sha = null;
         try {
             key = myKey.getBytes("UTF-8");
@@ -23,45 +22,35 @@ public class AES {
             key = sha.digest(key);
             key = Arrays.copyOf(key, 16);
             secretKey = new SecretKeySpec(key, "AES");
-        }
-        catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
 
-    public static String encrypt(int intstrToEncrypt, String secret)
-    {
+    public static String encrypt(int intstrToEncrypt, String secret) {
 
         String strToEncrypt = "" + intstrToEncrypt;
 
-        try
-        {
+        try {
             setKey(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
             return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error while encrypting: " + e.toString());
         }
         return null;
     }
 
-    public static String decrypt(String strToDecrypt, String secret)
-    {
-        try
-        {
+    public static String decrypt(String strToDecrypt, String secret) {
+        try {
             setKey(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
             return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error while decrypting: " + e.toString());
         }
         return null;

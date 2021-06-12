@@ -23,7 +23,17 @@ public class Smartphone {
 
     public void callEmergencyCenter(int row, int col) {
 
+        System.out.println("Calling emergency center...");
+
         EmergencyCenter.instance.getBot().acceptEmergencyCall(row, col, scannedface, humanID);
 
+    }
+
+    public char[][] getScannedface() {
+        return scannedface;
+    }
+
+    public String getHumanID() {
+        return humanID;
     }
 }

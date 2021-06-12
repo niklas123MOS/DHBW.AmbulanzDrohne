@@ -10,7 +10,7 @@ public class Camera implements ICentralUnitPart {
         visitor.visit(this);
     }
 
-    public char[][] scanFace(Human human){
+    public char[][] scanFace(Human human) {
         return human.getFace();
     }
 }

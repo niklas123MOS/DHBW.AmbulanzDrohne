@@ -6,6 +6,8 @@ public enum Configuration {
     public Algorithm pathAlgorithm = Algorithm.AStar;
 
 
+    public String secretKey = "dhbwmosbach2021";
+
     public final String userDirectory = System.getProperty("user.dir");
     public final String fileSeparator = System.getProperty("file.separator");
 
@@ -21,6 +23,10 @@ public enum Configuration {
             case DStar:
                 path += "d_star" + fileSeparator + "d_star.jar";
                 break;
+            case AStarUnsigned:                                         //for Test only
+                path += "a_star" + fileSeparator + "a_starunsigned.jar";//for Test only
+                break;                                                  //for Test only
+
         }
         return path;
     }

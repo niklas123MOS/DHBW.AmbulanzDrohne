@@ -1,6 +1,6 @@
 package drone.boom;
 
-public class MainBoom extends Boom{
+public class MainBoom extends Boom {
 
     public MainBoom(String boomName) {
         super(boomName);

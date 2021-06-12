@@ -1,5 +1,6 @@
 package EmergencyCenter;
 
+import Configuration.Configuration;
 import city.DronePort;
 import city.EmergencyParameters;
 import com.google.common.eventbus.EventBus;
@@ -11,8 +12,8 @@ public enum EmergencyCenter {
 
     instance;
     private EventBus eventBus = new EventBus();
-    private Bot bot=new Bot(this);
-    private ArrayList<DronePort> dronePorts= new ArrayList<>();
+    private Bot bot = new Bot(this);
+    private ArrayList<DronePort> dronePorts = new ArrayList<>();
 
 
     public void addSubscriber(Subscriber subscriber) {
@@ -30,17 +31,17 @@ public enum EmergencyCenter {
         int currentLeft;
         DronePort dronePort = null;
 
-        for (DronePort currentDronePort: dronePorts) {
+        for (DronePort currentDronePort : dronePorts) {
             currentAbove = currentDronePort.getWorkingAreaAbove();
             currentRight = currentDronePort.getWorkingAreaRight();
             currentBelow = currentDronePort.getWorkingAreaBelow();
             currentLeft = currentDronePort.getWorkingAreaLeft();
 
 
-            if( currentAbove < row &&
-                row < currentBelow &&
-                currentLeft < col &&
-                col < currentRight) {
+            if (currentAbove < row &&
+                    row < currentBelow &&
+                    currentLeft < col &&
+                    col < currentRight) {
                 dronePortID = currentDronePort.getDronePortID();
                 dronePort = currentDronePort;
             }
@@ -51,8 +52,12 @@ public enum EmergencyCenter {
         PathPlanner pathPlanner = new PathPlanner();
         int[][] route = pathPlanner.executeFindPath(dronePort.getRow(), dronePort.getCol(), row, col, dronePort.getCity().getCityareaChar());
 
+        if (route == null) {
+            return;
+        }
 
-        for (int i = 0; i <route.length ; i++) {
+        System.out.println("calculated Route:");
+        for (int i = 0; i < route.length; i++) {
 
             System.out.print(route[i][0] + " ");
             System.out.println(route[i][1]);
@@ -67,16 +72,16 @@ public enum EmergencyCenter {
     }
 
 
-    private String[][] encryptRoute (int[][] route){
+    private String[][] encryptRoute(int[][] route) {
         AES aes = new AES();
-        String secretKey="dhbwmosbach2021";
+        String secretKey = Configuration.instance.secretKey;
 
         String[][] encryptedRoute = new String[route.length][2];
 
-        for (int i = 0; i < route.length ; i++) {
+        for (int i = 0; i < route.length; i++) {
 
-            encryptedRoute[i][0]=aes.encrypt(route[i][0], secretKey);
-            encryptedRoute[i][1]=aes.encrypt(route[i][1], secretKey);
+            encryptedRoute[i][0] = aes.encrypt(route[i][0], secretKey);
+            encryptedRoute[i][1] = aes.encrypt(route[i][1], secretKey);
 
         }
 

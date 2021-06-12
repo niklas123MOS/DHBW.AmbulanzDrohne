@@ -2,7 +2,7 @@ package drone.boom;
 
 import drone.Motor.Motor;
 
-public class SubBoom extends Boom{
+public class SubBoom extends Boom {
 
     Motor motorTop;
     Motor motorBottom;
@@ -10,8 +10,8 @@ public class SubBoom extends Boom{
 
     public SubBoom(String boomName) {
         super(boomName);
-        this.motorTop= new Motor(this);
-        this.motorBottom= new Motor(this);
+        this.motorTop = new Motor(this);
+        this.motorBottom = new Motor(this);
     }
 
     public Motor getMotorTop() {

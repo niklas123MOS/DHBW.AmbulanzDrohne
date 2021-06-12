@@ -6,12 +6,15 @@ import java.util.ArrayList;
 
 public class City {
 
+    Human humanWithHeartAttack;
+    Human humanWithNoHeartAttack;
     private int r = 32500;
     private int s = 2500;
     private int h = 1000;
-
-    Citypart[][] cityarea = new Citypart[1000][1000];
-    ArrayList<DronePort> dronePorts = new ArrayList<>();
+    private int emergencyRow;
+    private int emergencyCol;
+    private Citypart[][] cityarea = new Citypart[1000][1000];
+    private ArrayList<DronePort> dronePorts = new ArrayList<>();
 
     private ArrayList<Human[]> humanPairs = new ArrayList<>();
 
@@ -21,17 +24,20 @@ public class City {
 
     }
 
-    public void startEmergency(){
+    public void startEmergency() {
         MersenneTwisterFast merTwi = new MersenneTwisterFast();
         int pairNumber = merTwi.nextInt(0, humanPairs.size());
 
-        int humanWithHeartAttackID = merTwi.nextInt(0,1);
+        int humanWithHeartAttackID = merTwi.nextInt(0, 1);
         int humanWithNoHeartAttackID = humanWithHeartAttackID == 0 ? 1 : 0;
 
-        Human humanWithHeartAttack = humanPairs.get(pairNumber)[humanWithHeartAttackID];
-        Human humanWithNoHeartAttack = humanPairs.get(pairNumber)[humanWithNoHeartAttackID];
+        humanWithHeartAttack = humanPairs.get(pairNumber)[humanWithHeartAttackID];
+        humanWithNoHeartAttack = humanPairs.get(pairNumber)[humanWithNoHeartAttackID];
 
         humanWithHeartAttack.humanGetsHeartAttack();
+
+        emergencyRow = humanWithNoHeartAttack.getRow();
+        emergencyCol = humanWithNoHeartAttack.getCol();
 
         humanWithNoHeartAttack.callEmergencyCenter();
         humanWithNoHeartAttack.setDrone(dronePorts.get(EmergencyParameters.instance.dronePortID).getDrone());
@@ -41,8 +47,8 @@ public class City {
     }
 
     private void createCity() {
-        for (int i = 0; i < 1000 ; i++) {
-            for (int j = 0; j < 1000 ; j++) {
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < 1000; j++) {
                 this.cityarea[i][j] = new Citypart(' ', i, j, this);
             }
         }
@@ -65,10 +71,10 @@ public class City {
         int col;
 
 
-        for (int i = 0; i < r;) {
-            row = merTwi.nextInt(0,999);
-            col = merTwi.nextInt(0,999);
-            if (this.cityarea[row][col].getType() == ' '){
+        for (int i = 0; i < r; ) {
+            row = merTwi.nextInt(0, 999);
+            col = merTwi.nextInt(0, 999);
+            if (this.cityarea[row][col].getType() == ' ') {
                 this.cityarea[row][col] = new Citypart('R');
                 i++;
 
@@ -77,11 +83,11 @@ public class City {
         }
 
 
-        for (int i = 0; i < s;) {
-            row = merTwi.nextInt(0,999);
-            col = merTwi.nextInt(0,999);
+        for (int i = 0; i < s; ) {
+            row = merTwi.nextInt(0, 999);
+            col = merTwi.nextInt(0, 999);
 
-            if (this.cityarea[row][col].getType() == ' '){
+            if (this.cityarea[row][col].getType() == ' ') {
                 this.cityarea[row][col] = new Citypart('S');
                 i++;
             }
@@ -90,28 +96,28 @@ public class City {
 
 
         for (int i = 0; i < h; i++) {
-            row = merTwi.nextInt(1,997);
-            col = merTwi.nextInt(1,998);
+            row = merTwi.nextInt(1, 997);
+            col = merTwi.nextInt(1, 998);
 
             if (this.cityarea[row][col].getType() == ' ' &&
-                    this.cityarea[row-1][col+1].getType()==(' ') &&
-                    this.cityarea[row-1][col].getType()==(' ') &&
-                    this.cityarea[row-1][col-1].getType()==(' ') &&
-                    this.cityarea[row][col+1].getType()==(' ') &&
-                    this.cityarea[row][col-1].getType()==(' ') &&
-                    this.cityarea[row+1][col+1].getType()==(' ') &&
-                    this.cityarea[row+1][col].getType()==(' ') &&
-                    this.cityarea[row+1][col-1].getType()==(' ') &&
-                    this.cityarea[row+2][col+1].getType()==(' ') &&
-                    this.cityarea[row+2][col].getType()==(' ') &&
-                    this.cityarea[row+2][col-1].getType()==(' ')
-            ){
-                Human human1= new Human('H', row, col,this);
-                Human human2= new Human('H', row+1, col,this);
+                    this.cityarea[row - 1][col + 1].getType() == (' ') &&
+                    this.cityarea[row - 1][col].getType() == (' ') &&
+                    this.cityarea[row - 1][col - 1].getType() == (' ') &&
+                    this.cityarea[row][col + 1].getType() == (' ') &&
+                    this.cityarea[row][col - 1].getType() == (' ') &&
+                    this.cityarea[row + 1][col + 1].getType() == (' ') &&
+                    this.cityarea[row + 1][col].getType() == (' ') &&
+                    this.cityarea[row + 1][col - 1].getType() == (' ') &&
+                    this.cityarea[row + 2][col + 1].getType() == (' ') &&
+                    this.cityarea[row + 2][col].getType() == (' ') &&
+                    this.cityarea[row + 2][col - 1].getType() == (' ')
+            ) {
+                Human human1 = new Human('H', row, col, this);
+                Human human2 = new Human('H', row + 1, col, this);
                 human1.setPartner(human2);
                 human2.setPartner(human1);
                 this.cityarea[row][col] = human1;
-                this.cityarea[row+1][col] = human2;
+                this.cityarea[row + 1][col] = human2;
 
                 humanPairs.add(new Human[]{human1, human2});
 
@@ -128,15 +134,35 @@ public class City {
 
         char[][] cityAreaChar = new char[cityarea.length][cityarea[0].length];
 
-        for (int i = 0; i < cityarea.length ; i++) {
-            for (int j = 0; j <cityarea[0].length ; j++) {
+        for (int i = 0; i < cityarea.length; i++) {
+            for (int j = 0; j < cityarea[0].length; j++) {
 
-                cityAreaChar[i][j]=cityarea[i][j].getType();
+                cityAreaChar[i][j] = cityarea[i][j].getType();
 
             }
 
         }
 
         return cityAreaChar;
+    }
+
+    public int getEmergencyRow() {
+        return emergencyRow;
+    }
+
+    public int getEmergencyCol() {
+        return emergencyCol;
+    }
+
+    public ArrayList<DronePort> getDronePorts() {
+        return dronePorts;
+    }
+
+    public Human getHumanWithHeartAttack() {
+        return humanWithHeartAttack;
+    }
+
+    public Human getHumanWithNoHeartAttack() {
+        return humanWithNoHeartAttack;
     }
 }

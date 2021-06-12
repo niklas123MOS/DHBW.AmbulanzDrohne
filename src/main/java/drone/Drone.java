@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Drone implements IElectrodesListener{
+public class Drone implements IElectrodesListener {
 
     private Boom mainBoom01;
     private Boom mainBoom02;
@@ -39,35 +39,66 @@ public class Drone implements IElectrodesListener{
     private Light light2;
     private Box box;
 
+    private int emergencyRow;
+    private int emergencyCol;
+
     private int row;
     private int col;
+
+
     private Direction direction = Direction.TOP;
 
     private ArrayList<Direction> route;
 
 
-    public static void main (String[] args){
-        if (args[0].equals("-configure")){
-            Drone drone = new Drone.Builder().mainBoom01().mainBoom02().mainBoom03().mainBoom04().setParameters().build();
-            drone.initCentralunit();
-            drone.menu();
+    public static void main(String[] args) {
+
+        try {
+
+
+            if (args[0].equals("-configure")) {
+                Drone drone = new Drone.Builder().mainBoom01().mainBoom02().mainBoom03().mainBoom04().setParameters().build();
+                drone.initCentralunit();
+                drone.menu();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("To configure Drone, please start the drone with parameter \"-configure\"!");
         }
 
     }
 
-    public void flyRoute(){
+    public void flyRoute() {
 
         this.takeOff();
 
-        for (Direction direction: this.route) {
+        for (Direction direction : this.route) {
 
-            while (this.direction != direction){
-                left();
+            int countLeft = 0;
+            int countRight = 0;
+            Direction currentDirection = this.direction;
+
+            while (currentDirection != direction) {
+                currentDirection = currentDirection.previous();
+                countLeft++;
+            }
+
+            currentDirection = this.direction;
+
+            while (currentDirection != direction) {
+                currentDirection = currentDirection.next();
+                countRight++;
+            }
+
+            while (this.direction != direction) {
+                if (countLeft < countRight) {
+                    left();
+                } else if (countRight < countLeft) {
+                    right();
+                }
+
             }
 
             forward();
-
-            System.out.println(row +" "+ col);
 
         }
 
@@ -75,15 +106,39 @@ public class Drone implements IElectrodesListener{
 
     }
 
-    public void setRoute(ArrayList<Direction> route) {
-        this.route = route;
+    private void flyBackToDronePort() {
+
+        if (route == null) return;
+
+        this.takeOff();
+
+
+        for (Direction direction : this.route) {
+
+            while (this.direction != direction.getOppositeDirection()) {
+                left();
+            }
+
+            forward();
+
+        }
+
+        this.land();
+
     }
 
-    public ArrayList<Electrode> getElectrodesFromBox(){
+    public void setRoute(ArrayList<Direction> route, int row, int col) {
+        this.route = route;
+        this.emergencyRow = row;
+        this.emergencyCol = col;
+
+    }
+
+    public ArrayList<Electrode> getElectrodesFromBox() {
         return this.box.takeElectrodes();
     }
 
-    public void layBackElectrodesInBox(ArrayList<Electrode> electrodes){
+    public void layBackElectrodesInBox(ArrayList<Electrode> electrodes) {
         this.box.layBackElectrodes(electrodes);
     }
 
@@ -139,7 +194,27 @@ public class Drone implements IElectrodesListener{
         return mainBoom04;
     }
 
-    public void initCentralunit(){
+    public int getEmergencyRow() {
+        return emergencyRow;
+    }
+
+    public int getEmergencyCol() {
+        return emergencyCol;
+    }
+
+    public ArrayList<Direction> getRoute() {
+        return route;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void initCentralunit() {
 
 
         SubBoom boom1 = (SubBoom) this.mainBoom01.listUnits().get(0);
@@ -165,9 +240,9 @@ public class Drone implements IElectrodesListener{
     }
 
 
-    public void takeOff(){
+    public void takeOff() {
 
-        System.out.println("Take off at Position: row" + row + " col" + col);
+        System.out.println("Drone " + this + " take off at Position: row: " + row + " col: " + col);
         centralUnit.motor1Top.takeOff();
         centralUnit.motor1Bottom.takeOff();
         centralUnit.motor2Top.takeOff();
@@ -178,11 +253,11 @@ public class Drone implements IElectrodesListener{
         centralUnit.motor4Bottom.takeOff();
     }
 
-    public void left(){
+    public void left() {
 
         System.out.println("Turn left");
         direction = direction.previous();
-        System.out.println(direction);
+
         centralUnit.motor1Top.left();
         centralUnit.motor1Bottom.left();
         centralUnit.motor2Top.left();
@@ -193,11 +268,11 @@ public class Drone implements IElectrodesListener{
         centralUnit.motor4Bottom.left();
     }
 
-    public void right(){
+    public void right() {
 
         System.out.println("Turn right");
         direction = direction.next();
-        System.out.println(direction);
+
         centralUnit.motor1Top.right();
         centralUnit.motor1Bottom.right();
         centralUnit.motor2Top.right();
@@ -209,11 +284,11 @@ public class Drone implements IElectrodesListener{
     }
 
 
-    public void forward(){
+    public void forward() {
 
         System.out.println("Flight Forward");
 
-        switch (direction){
+        switch (direction) {
             case TOP:
                 row--;
                 break;
@@ -254,7 +329,7 @@ public class Drone implements IElectrodesListener{
         centralUnit.motor4Bottom.forward();
     }
 
-    public void land(){
+    public void land() {
 
         System.out.println("Landed at position: row=" + row + " col=" + col);
 
@@ -269,7 +344,7 @@ public class Drone implements IElectrodesListener{
     }
 
 
-    private void menu(){
+    private void menu() {
         Scanner intScanner = new Scanner(System.in);
         MementoCaretaker mementoCaretaker = new MementoCaretaker();
         mementoCaretaker.setMemento(this.save());
@@ -283,9 +358,9 @@ public class Drone implements IElectrodesListener{
             System.out.println("4 check");
             System.out.println("5 exit");
 
-            int decicion = intScanner.nextInt();
+            int decision = intScanner.nextInt();
 
-            switch (decicion) {
+            switch (decision) {
                 case 1:
                     System.out.println("Configure:");
                     configure();
@@ -302,7 +377,7 @@ public class Drone implements IElectrodesListener{
                     this.check();
                     break;
                 case 5:
-                    exit=false;
+                    exit = false;
                     break;
                 default:
                     System.out.println("Invalid Input. Please check input number!");
@@ -333,10 +408,10 @@ public class Drone implements IElectrodesListener{
 
     private void saveToFile() {
 
-    JSONObject obj = new JSONObject();
-    obj.put("allowedAtNight", this.allowedAtNight);
-    obj.put("enableHooter", this.enableHooter);
-    obj.put("antiTheftProtection", this.antiTheftProtection);
+        JSONObject obj = new JSONObject();
+        obj.put("allowedAtNight", this.allowedAtNight);
+        obj.put("enableHooter", this.enableHooter);
+        obj.put("antiTheftProtection", this.antiTheftProtection);
 
         try (FileWriter file = new FileWriter(Configuration.instance.filePath)) {
             file.write(obj.toJSONString());
@@ -347,44 +422,47 @@ public class Drone implements IElectrodesListener{
 
     }
 
-    private DroneMemento save(){
+    private DroneMemento save() {
         return new DroneMemento(this.allowedAtNight, this.antiTheftProtection, this.enableHooter);
     }
 
 
-    private void configure(){
-        System.out.println(allowedAtNight +" "+ antiTheftProtection +" "+ enableHooter);
+    private void configure() {
+        System.out.println(allowedAtNight + " " + antiTheftProtection + " " + enableHooter);
         Scanner scanner = new Scanner(System.in);
         System.out.println("allowedAtNight: [true/false]");
-        this.allowedAtNight= scanner.nextBoolean();
+        this.allowedAtNight = scanner.nextBoolean();
         System.out.println("antiTheftProtection: [true/false]");
         this.antiTheftProtection = scanner.nextBoolean();
         System.out.println("enableHooter: [true/false]");
         this.enableHooter = scanner.nextBoolean();
-        System.out.println(allowedAtNight +" "+ antiTheftProtection +" "+ enableHooter);
+        System.out.println(allowedAtNight + " " + antiTheftProtection + " " + enableHooter);
     }
 
-    private void undo(DroneMemento memento){
-        System.out.println(allowedAtNight +" "+ antiTheftProtection +" "+ enableHooter);
-        this.allowedAtNight= memento.getAllowedAtNight();
+    private void undo(DroneMemento memento) {
+        System.out.println(allowedAtNight + " " + antiTheftProtection + " " + enableHooter);
+        this.allowedAtNight = memento.getAllowedAtNight();
         this.antiTheftProtection = memento.getAntiTheftProtection();
         this.enableHooter = memento.getEnableHooter();
-        System.out.println(allowedAtNight +" "+ antiTheftProtection +" "+ enableHooter);
+        System.out.println(allowedAtNight + " " + antiTheftProtection + " " + enableHooter);
 
     }
 
 
-    private Drone (Builder builder){
-        this.mainBoom01=builder.mainBoom01;
-        this.mainBoom02=builder.mainBoom02;
-        this.mainBoom03=builder.mainBoom03;
-        this.mainBoom04=builder.mainBoom04;
+    private Drone(Builder builder) {
+        this.mainBoom01 = builder.mainBoom01;
+        this.mainBoom02 = builder.mainBoom02;
+        this.mainBoom03 = builder.mainBoom03;
+        this.mainBoom04 = builder.mainBoom04;
         this.lidar = builder.lidar;
         this.camera = builder.camera;
         this.gps = builder.gps;
         this.light1 = builder.light1;
         this.light2 = builder.light2;
         this.box = builder.box;
+        this.antiTheftProtection = builder.antiTheftProtection;
+        this.allowedAtNight = builder.allowedAtNight;
+        this.enableHooter = builder.enableHooter;
     }
 
     @Override
@@ -392,25 +470,6 @@ public class Drone implements IElectrodesListener{
         flyBackToDronePort();
     }
 
-    private void flyBackToDronePort() {
-
-        this.takeOff();
-
-        for (Direction direction: this.route) {
-
-            while (this.direction != direction.getOppositeDirection()){
-                left();
-            }
-
-            forward();
-
-            System.out.println(row +" "+ col);
-
-        }
-        
-        this.land();
-
-    }
 
     public static class Builder {
 
@@ -428,7 +487,7 @@ public class Drone implements IElectrodesListener{
         private boolean antiTheftProtection;
         private boolean enableHooter;
 
-        public Builder setParameters(){
+        public Builder setParameters() {
             JSONParser parser = new JSONParser();
             try {
                 Object obj = parser.parse(new FileReader(Configuration.instance.filePath));
@@ -437,9 +496,9 @@ public class Drone implements IElectrodesListener{
                 this.antiTheftProtection = Boolean.parseBoolean(jsonObject.get("antiTheftProtection").toString());
                 this.enableHooter = Boolean.parseBoolean(jsonObject.get("enableHooter").toString());
 
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
-            } catch (ParseException e){
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
 
@@ -455,28 +514,31 @@ public class Drone implements IElectrodesListener{
         }
 
         public Builder mainBoom02() {
-            this.mainBoom02 = newMainBoom("mb2");;
+            this.mainBoom02 = newMainBoom("mb2");
+            ;
             return this;
         }
 
         public Builder mainBoom03() {
-            this.mainBoom03 = newMainBoom("mb3");;
+            this.mainBoom03 = newMainBoom("mb3");
+            ;
             return this;
         }
 
         public Builder mainBoom04() {
-            this.mainBoom04 = newMainBoom("mb4");;
+            this.mainBoom04 = newMainBoom("mb4");
+            ;
             return this;
         }
 
-        public Drone build(){
+        public Drone build() {
             return new Drone(this);
         }
 
-        private MainBoom newMainBoom (String name){
+        private MainBoom newMainBoom(String name) {
             MainBoom mb = new MainBoom(name);
-            Boom mb_sb1 = new SubBoom(name+"sb1");
-            Boom mb_sb2 = new SubBoom(name+"sb2");
+            Boom mb_sb1 = new SubBoom(name + "sb1");
+            Boom mb_sb2 = new SubBoom(name + "sb2");
             mb.addBoom(mb_sb1);
             mb.addBoom(mb_sb2);
 
@@ -486,7 +548,6 @@ public class Drone implements IElectrodesListener{
 
 
     }
-
 
 
 }

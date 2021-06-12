@@ -28,7 +28,7 @@ public class Box implements ICentralUnitPart {
         return electrodes;
     }
 
-    public void layBackElectrodes (ArrayList<Electrode> electrodes) {
+    public void layBackElectrodes(ArrayList<Electrode> electrodes) {
 
         this.electrode01 = electrodes.get(0);
         this.electrode02 = electrodes.get(1);

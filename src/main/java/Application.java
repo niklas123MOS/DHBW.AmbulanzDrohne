@@ -1,27 +1,17 @@
 import city.City;
-import city.Citypart;
-import city.DronePort;
-import city.Human;
-import drone.Drone;
 
 public class Application {
 
-
-
-    public static void main (String[] args){
+    public static void main(String[] args) {
 
         City mosbach = new City();
 
-        Citypart[][] mosbachCityarea = mosbach.getCityarea();
+        int numberOfSimulations = 3;
 
-        mosbach.startEmergency();
-
-
+        for (int i = 0; i < numberOfSimulations; i++) {
+            mosbach.startEmergency();
+        }
 
     }
-
-
-
-
 
 }

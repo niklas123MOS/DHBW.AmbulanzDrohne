@@ -20,7 +20,7 @@ public abstract class Boom {
 
     public void addBoom(Boom boom) {
         booms.add(boom);
-        boom.parentBoom= this;
+        boom.parentBoom = this;
     }
 
     public final boolean isComposite() {

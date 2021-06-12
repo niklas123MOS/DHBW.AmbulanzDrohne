@@ -5,30 +5,32 @@ public class DStar {
 
     public Port port;
 
-    private DStar(){
+    private DStar() {
         port = new Port();
     }
 
-    public static DStar getInstance(){return instance;}
+    public static DStar getInstance() {
+        return instance;
+    }
 
 
     public static void main(String... args) {
-        char[][]city = new char[][]{
-                {' ',' ',' ',' ',' ',' ','S',' ',' ',' '},
-                {' ',' ',' ',' ',' ',' ','S',' ',' ',' '},
-                {' ',' ',' ','R',' ',' ','S',' ',' ',' '},
-                {' ',' ',' ','R',' ',' ','S',' ',' ',' '},
-                {' ',' ',' ','R',' ',' ','S',' ',' ',' '},
-                {' ',' ',' ','R',' ',' ','S',' ',' ',' '},
-                {' ',' ',' ','R',' ',' ','S',' ',' ',' '},
-                {' ',' ',' ','R',' ',' ','S',' ',' ',' '},
-                {' ',' ',' ','R',' ',' ',' ',' ',' ',' '},
-                {' ',' ',' ','R',' ',' ',' ',' ',' ',' '}};
+        char[][] city = new char[][]{
+                {' ', ' ', ' ', ' ', ' ', ' ', 'S', ' ', ' ', ' '},
+                {' ', ' ', ' ', ' ', ' ', ' ', 'S', ' ', ' ', ' '},
+                {' ', ' ', ' ', 'R', ' ', ' ', 'S', ' ', ' ', ' '},
+                {' ', ' ', ' ', 'R', ' ', ' ', 'S', ' ', ' ', ' '},
+                {' ', ' ', ' ', 'R', ' ', ' ', 'S', ' ', ' ', ' '},
+                {' ', ' ', ' ', 'R', ' ', ' ', 'S', ' ', ' ', ' '},
+                {' ', ' ', ' ', 'R', ' ', ' ', 'S', ' ', ' ', ' '},
+                {' ', ' ', ' ', 'R', ' ', ' ', 'S', ' ', ' ', ' '},
+                {' ', ' ', ' ', 'R', ' ', ' ', ' ', ' ', ' ', ' '},
+                {' ', ' ', ' ', 'R', ' ', ' ', ' ', ' ', ' ', ' '}};
 
-        int[][] route = instance.port.findPath(0,0,9,9, city);
+        int[][] route = instance.port.findPath(0, 0, 9, 9, city);
 
         for (int i = 0; i < route.length; i++) {
-            System.out.print(route[i][0]+" ");
+            System.out.print(route[i][0] + " ");
             System.out.println(route[i][1]);
         }
     }
@@ -44,16 +46,16 @@ public class DStar {
 
         ArrayList<DstarNode> path = pathFinder.traverseMap();
 
-        int[][]route = new int[path.size()][2];
+        int[][] route = new int[path.size()][2];
 
         for (int i = 0; i < path.size(); i++) {
 
-            route[i][0]=path.get(i).getRow();
-            route[i][1]=path.get(i).getColumn();
+            route[i][0] = path.get(i).getRow();
+            route[i][1] = path.get(i).getColumn();
 
         }
 
-    return  route;
+        return route;
     }
 
 

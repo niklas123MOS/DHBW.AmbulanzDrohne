@@ -47,7 +47,6 @@ public class CentralUnitMediator implements ICentralUnitMediator {
     }
 
 
-
     @Override
     public void registerMotor1Top(Motor motor) {
         this.motor1Top = motor;
@@ -55,12 +54,12 @@ public class CentralUnitMediator implements ICentralUnitMediator {
 
     @Override
     public void registerMotor1Bottom(Motor motor) {
-        this.motor1Bottom= motor;
+        this.motor1Bottom = motor;
     }
 
     @Override
     public void registerMotor2Top(Motor motor) {
-        this.motor2Top= motor;
+        this.motor2Top = motor;
     }
 
     @Override
@@ -70,21 +69,21 @@ public class CentralUnitMediator implements ICentralUnitMediator {
 
     @Override
     public void registerMotor3Top(Motor motor) {
-        this.motor3Top= motor;
+        this.motor3Top = motor;
     }
 
     @Override
     public void registerMotor3Bottom(Motor motor) {
-        this.motor3Bottom= motor;
+        this.motor3Bottom = motor;
     }
 
     @Override
     public void registerMotor4Top(Motor motor) {
-        this.motor4Top= motor;
+        this.motor4Top = motor;
     }
 
     @Override
     public void registerMotor4Bottom(Motor motor) {
-        this.motor4Bottom= motor;
+        this.motor4Bottom = motor;
     }
 }

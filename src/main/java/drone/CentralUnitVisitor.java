@@ -6,7 +6,7 @@ import drone.technologies.GPS;
 import drone.technologies.LIDAR;
 import drone.technologies.Light;
 
-public class CentralUnitVisitor implements ICentralUnitVisitor{
+public class CentralUnitVisitor implements ICentralUnitVisitor {
     @Override
     public void visit(Motor motor) {
         System.out.println(motor + " visited.");
